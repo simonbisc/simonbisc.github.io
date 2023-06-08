@@ -1,0 +1,43 @@
+<strong>Median Family Income in the United States and Inflation</strong>
+
+~~~~
+<<dd_do>>
+import excel "/Users/simoneboschetti/Desktop/DATA/income vs inflation.xls", sheet("FRED Graph") cellrange(A12:C70) firstrow clear
+tsset observation_date
+rename MEFAINUSA646N_PC1 medfamincome
+rename FPCPITOTLZGUSA inflation
+<</dd_do>>
+~~~~
+
+<<dd_do: quietly>>
+graph twoway tsline medfamincome inflation
+<</dd_do>>
+<<dd_graph: saving("medfamincomeinflation.png") alt("medfamincomeinflation") replace height(400) width(600)>>
+
+~~~~
+<<dd_do>>
+correlate
+reg medfamincome inflation
+<</dd_do>>
+~~~~
+
+~~~~
+<<dd_do>>
+predict Py, xb
+generate  res = medfamincome - Py
+generate X=_n
+<</dd_do>>
+~~~~
+
+<<dd_do: quietly>>
+graph twoway scatter res X, play(10)
+<</dd_do>>
+<<dd_graph: saving("medfamincomeinflationscatter.png") alt("medfamincomeinflation") replace height(400) width(600)>>
+<<dd_do: quietly>>
+qnorm res, play(10)
+<</dd_do>>
+<<dd_graph: saving("medfamincomeinflationqqplot.png") alt("medfamincomeinflation") replace height(400) width(600)>>
+
+
+
+

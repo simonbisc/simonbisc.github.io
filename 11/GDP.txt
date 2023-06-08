@@ -1,0 +1,61 @@
+<strong>GDP, NASDAQ100</strong>
+
+
+~~~~
+<<dd_do>>
+import excel "/Users/simoneboschetti/Desktop/DATA/GDP.xls", sheet("FRED Graph") cellrange(A11:B316) firstrow clear
+tsset observation_date
+<</dd_do>>
+~~~~
+
+~~~~
+<<dd_do>>
+summarize GDP
+<</dd_do>>
+~~~~
+
+<strong>Serie stazionaria</strong>
+
+
+<<dd_do: quietly>>
+graph twoway tsline GDP, play(10)
+<</dd_do>>
+<<dd_graph: saving("GDP.png") alt("GDP") replace height(400) width(600)>>
+<<dd_do: quietly>>
+ac GDP, lag(30) play(10)
+<</dd_do>>
+<<dd_graph: saving("GDP2.png") alt("GDP correlogramma") replace height(400) width(600)>>
+
+
+
+
+~~~~
+<<dd_do>>
+import excel "/Users/simoneboschetti/Desktop/DATA/NASDAQ100.xls", sheet("FRED Graph") cellrange(A11:B9663) firstrow clear
+rename observation_date date
+label variable date "date"
+tsset date
+<</dd_do>>
+~~~~
+
+~~~~
+<<dd_do>>
+summarize NASDAQ100
+<</dd_do>>
+~~~~
+
+<strong>Serie non stazionaria</strong>
+
+
+<<dd_do: quietly>>
+graph twoway tsline NASDAQ100, play(10)
+<</dd_do>>
+<<dd_graph: saving("GDP3.png") alt("NASDAQ100") replace height(400) width(600)>>
+<<dd_do: quietly>>
+ac NASDAQ100, lag(30) play(10)
+<</dd_do>>
+<<dd_graph: saving("GDP4.png") alt("NASDAQ100 correlogramma") replace height(400) width(600)>>
+
+
+
+

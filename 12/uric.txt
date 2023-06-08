@@ -1,0 +1,47 @@
+<strong>Unemployment rate and initial claims</strong>
+
+
+~~~~
+<<dd_do>>
+import excel "/Users/simoneboschetti/Desktop/DATA/unrate intial claims.xls", sheet("FRED Graph") cellrange(A12:C653) firstrow clear
+tsset observation_date
+<</dd_do>>
+~~~~
+
+~~~~
+<<dd_do>>
+summarize
+<</dd_do>>
+~~~~
+
+
+<<dd_do: quietly>>
+ac ICSA, lag(10) play(10)
+<</dd_do>>
+<<dd_graph: saving("icsa correlogramma.png") alt("UNRATE ICSA ") replace height(400) width(600)>>
+<<dd_do: quietly>>
+ac UNRATE, lag(10) play(10)
+<</dd_do>>
+<<dd_graph: saving("UNRATE correlogramma.png") alt("UNRATE ICSA ") replace height(400) width(600)>>
+
+
+~~~~
+<<dd_do>>
+correlate UNRATE ICSA
+<</dd_do>>
+~~~~
+
+
+<<dd_do: quietly>>
+graph twoway tsline UNRATE, yaxis(1) || tsline ICSA, yaxis(2) , play(10)
+<</dd_do>>
+<<dd_graph: saving("tsline unrate icsa.png") alt("UNRATE ICSA ") replace height(600) width(800)>>
+
+
+~~~~
+<<dd_do>>
+reg ICSA UNRATE
+<</dd_do>>
+~~~~
+
+R-squared=0.2593 

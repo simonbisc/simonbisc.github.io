@@ -1,0 +1,50 @@
+<p><strong>Unemployment rate and initial claims</strong></p>
+<pre><code>. import excel &quot;/Users/simoneboschetti/Desktop/DATA/unrate intial claims.xls&quot;, sheet(&quot;FRED Graph&quot;) cellrange(A12:C653) firstrow clea
+&gt; r
+(3 vars, 641 obs)
+
+. tsset observation_date
+
+Time variable: observation_date, 01jan1970 to 01may2023, but with gaps
+        Delta: 1 day
+
+</code></pre>
+<pre><code>. summarize
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+observatio~e |        641    13392.17    5636.574       3653      23131
+        ICSA |        641    376762.9    230735.6     190500    4663250
+      UNRATE |        641    6.153978     1.69415        3.4       14.7
+
+</code></pre>
+<p><img src="icsa%20correlogramma.png" height="400" width="600" alt="UNRATE ICSA" > <img src="UNRATE%20correlogramma.png" height="400" width="600" alt="UNRATE ICSA" ></p>
+<pre><code>. correlate UNRATE ICSA
+(obs=641)
+
+             |   UNRATE     ICSA
+-------------+------------------
+      UNRATE |   1.0000
+        ICSA |   0.5092   1.0000
+
+
+</code></pre>
+<p><img src="tsline%20unrate%20icsa.png" height="600" width="800" alt="UNRATE ICSA" ></p>
+<pre><code>. reg ICSA UNRATE
+
+      Source |       SS           df       MS      Number of obs   =       641
+-------------+----------------------------------   F(1, 639)       =    223.71
+       Model |  8.8355e+12         1  8.8355e+12   Prob &gt; F        =    0.0000
+    Residual |  2.5237e+13       639  3.9495e+10   R-squared       =    0.2593
+-------------+----------------------------------   Adj R-squared   =    0.2582
+       Total |  3.4073e+13       640  5.3239e+10   Root MSE        =    2.0e+05
+
+------------------------------------------------------------------------------
+        ICSA | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+      UNRATE |   69354.18   4636.931    14.96   0.000     60248.71    78459.64
+       _cons |  -50041.21    29595.5    -1.69   0.091    -108157.4    8074.986
+------------------------------------------------------------------------------
+
+</code></pre>
+<p>R-squared=0.2593</p>
