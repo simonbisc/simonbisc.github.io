@@ -1,21 +1,23 @@
-<p><strong>GDP, NASDAQ100</strong></p>
-<pre><code>. import excel &quot;/Users/simoneboschetti/Desktop/DATA/GDP.xls&quot;, sheet(&quot;FRED Graph&quot;) cellrange(A11:B316) firstrow clear
-(2 vars, 305 obs)
+<p><strong>STATIONARITY</strong></p>
+<pre><code>. import excel &quot;/Users/simoneboschetti/Desktop/DATA/cpi%change.xls&quot;, sheet(&quot;FRED Graph&quot;) cellrange(A11:B676) firstrow clear
+(2 vars, 665 obs)
+
+. rename CORESTICKM159SFRBATL_PCH cpichange
 
 . tsset observation_date
 
-Time variable: observation_date, 01jan1947 to 01jan2023, but with gaps
+Time variable: observation_date, 01jan1968 to 01may2023, but with gaps
         Delta: 1 day
 
 </code></pre>
-<pre><code>. summarize GDP
+<pre><code>. summarize cpichange
 
     Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
-         GDP |        305    6937.946    7101.128    243.164   26486.29
+   cpichange |        665    .2236149    5.294714  -20.35727   32.53381
 
 </code></pre>
-<p><strong>Serie stazionaria</strong></p>
+<p><strong>Stationarity</strong></p>
 <p><img src="GDP.png" height="400" width="600" alt="GDP" > <img src="GDP2.png" height="400" width="600" alt="GDP correlogramma" ></p>
 <pre><code>. import excel &quot;/Users/simoneboschetti/Desktop/DATA/NASDAQ100.xls&quot;, sheet(&quot;FRED Graph&quot;) cellrange(A11:B9663) firstrow clear
 (2 vars, 9,652 obs)
@@ -37,5 +39,5 @@ Time variable: date, 02jan1986 to 30dec2022, but with gaps
    NASDAQ100 |      9,327    2871.658    3469.038     128.43   16573.34
 
 </code></pre>
-<p><strong>Serie non stazionaria</strong></p>
+<p><strong>Non Stationarity</strong></p>
 <p><img src="GDP3.png" height="400" width="600" alt="NASDAQ100" > <img src="GDP4.png" height="400" width="600" alt="NASDAQ100 correlogramma" ></p>

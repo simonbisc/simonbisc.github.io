@@ -1,28 +1,29 @@
-<strong>GDP, NASDAQ100</strong>
+<strong>STATIONARITY</strong>
 
 
 ~~~~
 <<dd_do>>
-import excel "/Users/simoneboschetti/Desktop/DATA/GDP.xls", sheet("FRED Graph") cellrange(A11:B316) firstrow clear
+import excel "/Users/simoneboschetti/Desktop/DATA/cpi%change.xls", sheet("FRED Graph") cellrange(A11:B676) firstrow clear
+rename CORESTICKM159SFRBATL_PCH cpichange
 tsset observation_date
 <</dd_do>>
 ~~~~
 
 ~~~~
 <<dd_do>>
-summarize GDP
+summarize cpichange
 <</dd_do>>
 ~~~~
 
-<strong>Serie stazionaria</strong>
+<strong>Stationarity</strong>
 
 
 <<dd_do: quietly>>
-graph twoway tsline GDP, play(10)
+graph twoway tsline cpichange, play(10)
 <</dd_do>>
 <<dd_graph: saving("GDP.png") alt("GDP") replace height(400) width(600)>>
 <<dd_do: quietly>>
-ac GDP, lag(30) play(10)
+ac cpichange, lag(20) play(10)
 <</dd_do>>
 <<dd_graph: saving("GDP2.png") alt("GDP correlogramma") replace height(400) width(600)>>
 
@@ -44,7 +45,7 @@ summarize NASDAQ100
 <</dd_do>>
 ~~~~
 
-<strong>Serie non stazionaria</strong>
+<strong>Non Stationarity</strong>
 
 
 <<dd_do: quietly>>
@@ -52,7 +53,7 @@ graph twoway tsline NASDAQ100, play(10)
 <</dd_do>>
 <<dd_graph: saving("GDP3.png") alt("NASDAQ100") replace height(400) width(600)>>
 <<dd_do: quietly>>
-ac NASDAQ100, lag(30) play(10)
+ac NASDAQ100, lag(20) play(10)
 <</dd_do>>
 <<dd_graph: saving("GDP4.png") alt("NASDAQ100 correlogramma") replace height(400) width(600)>>
 
