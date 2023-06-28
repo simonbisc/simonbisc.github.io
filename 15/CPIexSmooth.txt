@@ -1,0 +1,44 @@
+<strong>Exponential Smoothing</strong>
+
+
+~~~~
+<<dd_do>>
+import excel "/Users/simoneboschetti/Desktop/DATA/CORESTICKM159SFRBATL.xls", sheet("FRED Graph") cellrange(A11:C472) firstrow clear
+rename CORESTICKM159SFRBATL_CHG cpi
+label variable cpi "cpi"
+<</dd_do>>
+~~~~
+
+~~~~
+<<dd_do>>
+tsset observation_date
+<</dd_do>>
+~~~~
+
+
+<<dd_do: quietly>>
+graph twoway tsline cpi, play(10)
+<</dd_do>>
+<<dd_graph: saving("graph1.png") alt("0") replace height(400) width(600)>>
+<<dd_do: quietly>>
+ac cpi ,lag(10) play(10)
+<</dd_do>>
+<<dd_graph: saving("graph2.png") alt("1") replace height(400) width(600)>>
+
+
+<strong>Different Parameters</strong>
+~~~~
+<<dd_do>>
+tssmooth exponential A0=cpi, forecast(20) s0(1) parms(0.001)
+tssmooth exponential A1=cpi, forecast(20) s0(1) parms(0.01)
+tssmooth exponential A2=cpi, forecast(20) s0(1) parms(0.1)
+tssmooth exponential A3=cpi, forecast(20) s0(1) parms(0.5)
+<</dd_do>>
+~~~~
+
+
+<<dd_do: quietly>>
+graph twoway tsline cpi A1 A2 A3
+<</dd_do>>
+<<dd_graph: saving("graph3.png") alt("2") replace height(600) width(800)>>
+

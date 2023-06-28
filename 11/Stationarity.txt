@@ -21,11 +21,11 @@ summarize cpichange
 <<dd_do: quietly>>
 graph twoway tsline cpichange, play(10)
 <</dd_do>>
-<<dd_graph: saving("GDP.png") alt("GDP") replace height(400) width(600)>>
+<<dd_graph: saving("cpichange.png") alt("cpichange") replace height(400) width(600)>>
 <<dd_do: quietly>>
 ac cpichange, lag(20) play(10)
 <</dd_do>>
-<<dd_graph: saving("GDP2.png") alt("GDP correlogramma") replace height(400) width(600)>>
+<<dd_graph: saving("cpichangecorr.png") alt("cpichange correlogramma") replace height(400) width(600)>>
 
 
 
@@ -51,11 +51,11 @@ summarize NASDAQ100
 <<dd_do: quietly>>
 graph twoway tsline NASDAQ100, play(10)
 <</dd_do>>
-<<dd_graph: saving("GDP3.png") alt("NASDAQ100") replace height(400) width(600)>>
+<<dd_graph: saving("NASDAQ100.png") alt("NASDAQ100") replace height(400) width(600)>>
 <<dd_do: quietly>>
 ac NASDAQ100, lag(20) play(10)
 <</dd_do>>
-<<dd_graph: saving("GDP4.png") alt("NASDAQ100 correlogramma") replace height(400) width(600)>>
+<<dd_graph: saving("NASDAQ100corr.png") alt("NASDAQ100 correlogramma") replace height(400) width(600)>>
 
 
 

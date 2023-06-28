@@ -1,0 +1,44 @@
+<p><strong>Exponential Smoothing</strong></p>
+<pre><code>. import excel &quot;/Users/simoneboschetti/Desktop/DATA/CORESTICKM159SFRBATL.xls&quot;, sheet(&quot;FRED Graph&quot;) cellrange(A11:C472) firs
+&gt; trow clear
+(3 vars, 461 obs)
+
+. rename CORESTICKM159SFRBATL_CHG cpi
+
+. label variable cpi &quot;cpi&quot;
+
+</code></pre>
+<pre><code>. tsset observation_date
+
+Time variable: observation_date, 01dec1984 to 01apr2023, but with gaps
+        Delta: 1 day
+
+</code></pre>
+<p><img src="graph1.png" height="400" width="600" alt="0" > <img src="graph2.png" height="400" width="600" alt="1" ></p>
+<p><strong>Different Parameters</strong></p>
+<pre><code>. tssmooth exponential A0=cpi, forecast(20) s0(1) parms(0.001)
+
+exponential coefficient  =       0.0010
+sum-of-squared residuals =       .83914
+root mean squared error  =       .91605
+
+. tssmooth exponential A1=cpi, forecast(20) s0(1) parms(0.01)
+
+exponential coefficient  =       0.0100
+sum-of-squared residuals =        58.47
+root mean squared error  =       .35614
+
+. tssmooth exponential A2=cpi, forecast(20) s0(1) parms(0.1)
+
+exponential coefficient  =       0.1000
+sum-of-squared residuals =       12.233
+root mean squared error  =        .1629
+
+. tssmooth exponential A3=cpi, forecast(20) s0(1) parms(0.5)
+
+exponential coefficient  =       0.5000
+sum-of-squared residuals =        8.831
+root mean squared error  =       .13841
+
+</code></pre>
+<p><img src="graph3.png" height="600" width="800" alt="2" ></p>
