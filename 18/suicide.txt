@@ -1,4 +1,5 @@
-<strong>Suicides Seasonality</strong>
+
+<strong>Seasonality of Suicidal Behavior</strong>
 
 ~~~~
 <<dd_do>>
@@ -22,7 +23,7 @@ correlate C D E F G H
 <<dd_do: quietly>>
 graph twoway tsline C D E F G H, play(11)
 <</dd_do>>
-<<dd_graph: saving("graph1.png") alt("seasonality") replace height(600) width(800)>>
+<<dd_graph: saving("graph1.png") alt("1") replace height(600) width(800)>>
 
 ~~~~
 <<dd_do>>
@@ -32,9 +33,11 @@ tsset mesi_num
 
 
 <<dd_do: quietly>>
-ac serie_completa, lag(70) play(11)
+ac serie_completa, lag(70) play(12)
 <</dd_do>>
-<<dd_graph: saving("graph2.png") alt("correlogramma") replace height(600) width(800)>>
+<<dd_graph: saving("graph2.png") alt("2") replace height(600) width(800)>>
+
+
 
 
 
