@@ -1,0 +1,41 @@
+<strong>Suicides Seasonality</strong>
+
+~~~~
+<<dd_do>>
+import excel "/Users/simoneboschetti/Desktop/data.xls", sheet("Foglio1") cellrange(A15:J87) firstrow clear
+tsset mese_num
+<</dd_do>>
+~~~~
+
+~~~~
+<<dd_do>>
+summarize
+<</dd_do>> 
+~~~~
+
+~~~~
+<<dd_do>>
+correlate C D E F G H
+<</dd_do>> 
+~~~~
+
+<<dd_do: quietly>>
+graph twoway tsline C D E F G H, play(11)
+<</dd_do>>
+<<dd_graph: saving("graph1.png") alt("seasonality") replace height(600) width(800)>>
+
+~~~~
+<<dd_do>>
+tsset mesi_num
+<</dd_do>>
+~~~~
+
+
+<<dd_do: quietly>>
+ac serie_completa, lag(70) play(11)
+<</dd_do>>
+<<dd_graph: saving("graph2.png") alt("correlogramma") replace height(600) width(800)>>
+
+
+
+

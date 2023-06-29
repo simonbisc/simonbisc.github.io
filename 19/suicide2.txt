@@ -1,0 +1,119 @@
+<strong>Estimation of the components</strong>
+
+~~~~
+<<dd_do>>
+import excel "/Users/simoneboschetti/Desktop/data.xls", sheet("Foglio1") cellrange(A15:J87) firstrow clear
+tsset mesi_num
+<</dd_do>>
+~~~~
+
+<<dd_do: quietly>>
+graph twoway tsline serie_completa, play(12)
+<</dd_do>>
+<<dd_graph: saving("graph1.png") alt("timeplot") replace height(600) width(800)>>
+
+<strong>Moving average (period=3)</strong>
+~~~~
+<<dd_do>>
+tssmooth ma ma3 = serie_completa, window(1 1 1)
+<</dd_do>>
+~~~~
+
+<strong>Moving average (period=12)</strong>
+~~~~
+<<dd_do>>
+tssmooth ma ma121 = serie_completa, window(5 1 6)
+tssmooth ma ma122 = serie_completa, window(6 1 5)
+gen ma12 =( ma121+ ma122)/2
+<</dd_do>>
+~~~~
+
+<<dd_do: quietly>>
+graph twoway tsline serie_completa ma3 ma12, play(11)
+<</dd_do>>
+<<dd_graph: saving("graph2.png") alt("moving average") replace height(600) width(800)>>
+
+<strong>Gross seasonality</strong>
+~~~~
+<<dd_do>>
+gen SE3 = serie_completa-ma3
+gen SE12 = serie_completa-ma12
+<</dd_do>>
+~~~~
+
+<<dd_do: quietly>>
+graph twoway tsline SE12 SE3, play(11)
+<</dd_do>>
+<<dd_graph: saving("graph3.png") alt("3") replace height(600) width(800)>>
+
+~~~~
+<<dd_do>>
+tsset mese_num
+egen dS1= mean(SE12) if inrange(mese_num, 1, 1)
+egen dS2= mean(SE12) if inrange(mese_num, 2, 2) 
+egen dS3= mean(SE12) if inrange(mese_num, 3, 3) 
+egen dS4= mean(SE12) if inrange(mese_num, 4, 4) 
+egen dS5= mean(SE12) if inrange(mese_num, 5, 5) 
+egen dS6= mean(SE12) if inrange(mese_num, 6, 6) 
+egen dS7= mean(SE12) if inrange(mese_num, 7, 7) 
+egen dS8= mean(SE12) if inrange(mese_num, 8, 8) 
+egen dS9= mean(SE12) if inrange(mese_num, 9, 9) 
+egen dS10= mean(SE12) if inrange(mese_num, 10, 10)
+egen dS11= mean(SE12) if inrange(mese_num, 11, 11) 
+egen dS12= mean(SE12) if inrange(mese_num, 12, 12) 
+replace dS1= 0 if (dS1 >= .)
+replace dS2= 0 if (dS2 >= .)
+replace dS3= 0 if (dS3 >= .)
+replace dS4= 0 if (dS4 >= .)
+replace dS5= 0 if (dS5 >= .)
+replace dS6= 0 if (dS6 >= .)
+replace dS7= 0 if (dS7 >= .)
+replace dS8= 0 if (dS8 >= .)
+replace dS9= 0 if (dS9 >= .)
+replace dS10= 0 if (dS10 >= .)
+replace dS11= 0 if (dS11 >= .)
+replace dS12= 0 if (dS12 >= .)
+gen Stag12= dS1+dS2+dS3+dS4+dS5+dS6+dS7+dS8+dS9+dS10+dS11+dS12
+<</dd_do>>
+~~~~
+
+~~~~
+<<dd_do>>
+tsset mesi_num
+<</dd_do>>
+~~~~
+
+
+~~~~
+<<dd_do>>
+gen D12 = serie_completa-Stag12
+<</dd_do>>
+~~~~
+
+
+<strong>Trend + stochastic component</strong>
+
+<<dd_do: quietly>>
+graph twoway tsline  D12, play(12)
+<</dd_do>>
+<<dd_graph: saving("graph5.png") alt("5") replace height(600) width(800)>>
+
+~~~~
+<<dd_do>>
+tssmooth ma ma21new = D12, window(10 1 10)
+gen Trend = ma21new
+<</dd_do>>
+~~~~
+
+<<dd_do: quietly>>
+graph twoway tsline  Trend, play(12)
+<</dd_do>>
+<<dd_graph: saving("graph6.png") alt("6") replace height(600) width(800)>>
+
+
+
+
+
+
+
+
